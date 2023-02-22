@@ -54,6 +54,8 @@ const App = () => {
     // setTasks([...tasks, newTask])
   }
 
+
+
   // Delete Task
   const deleteTask = async (id) => {
     const res = await fetch(`http://localhost:5000/tasks/${id}`, {
@@ -64,6 +66,30 @@ const App = () => {
       ? setTasks(tasks.filter((task) => task.id !== id))
       : alert('Error Deleting This Task')
   }
+
+    //Complete Task
+    const onCompleted = async (id) => {
+      const toggleCompleted = await fetchTask(id)
+    
+      const upDate = {...toggleCompleted, completed: !toggleCompleted.completed}
+      console.log(upDate)
+      const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(upDate),
+      })
+      const data = await res.json()
+      console.log(data)
+      setTasks(
+        tasks.map((task) =>
+          task.id === id ? { ...task, completed: data.completed } : task
+         
+        )
+      )
+      
+    }
 
   // Toggle Reminder
   const toggleReminder = async (id) => {
@@ -86,6 +112,39 @@ const App = () => {
       )
     )
   }
+    // Toggle Priority
+    const togglePriority = async (id) => {
+      const taskToToggle = await fetchTask(id)
+       let valueP = ""
+
+       if (taskToToggle.priority == "low") {
+        valueP = 'medium';
+      } else if (taskToToggle.priority == "medium"){
+        valueP = 'high';
+      }else {
+        valueP = 'low';
+      }
+
+      const updTask = { ...taskToToggle, priority: valueP
+ 
+       }
+  
+      const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(updTask),
+      })
+  
+      const data = await res.json()
+  
+      setTasks(
+        tasks.map((task) =>
+          task.id === id ? { ...task, priority: data.priority } : task
+        )
+      )
+    }
 
   return (
     <Router>
@@ -105,6 +164,8 @@ const App = () => {
                     tasks={tasks}
                     onDelete={deleteTask}
                     onToggle={toggleReminder}
+                    completedToggle={onCompleted}
+                    priorityToggle={togglePriority}
                   />
                 ) : (
                   'No Tasks To Show'

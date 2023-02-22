@@ -15,7 +15,8 @@ body {
   margin: 30px auto;
   overflow: auto;
   min-height: 300px;
-  border: 1px solid steelblue;
+  border: 1px solid rgb(108, 109, 110);
+  background-color: #e3e2e2ac;
   padding: 30px;
   border-radius: 5px;
 }
@@ -55,13 +56,36 @@ body {
 }
 
 .task {
-  background: #f4f4f4;
+  background:#fff;
   margin: 5px;
   padding: 10px 20px;
   cursor: pointer;
+  border-radius: 8px;
 }
 
-.task.reminder {
+.high{
+  background-color: rgb(246, 12, 58);
+  width: 40px;
+  height: 10px;
+  border-radius: 8px;
+  float: right;
+}
+.medium{
+  background-color: rgb(3, 191, 9);
+  width: 40px;
+  height: 10px;
+  border-radius: 8px;
+  float: right;
+}
+.low{
+  background-color: rgb(26, 41, 246);
+  width: 40px;
+  height: 10px;
+  border-radius: 8px;
+  float: right;
+}
+
+.reminder {
   border-left: 5px solid green;
 }
 
@@ -70,6 +94,21 @@ body {
   align-items: center;
   justify-content: space-between;
 }
+.completed{
+text-decoration: line-through;
+text-decoration-thickness: 1.5px;
+}
+.iconsNoShow{
+  display: flex; 
+  justify-content: flex-end;
+  visibility: hidden;
+}
+.icons{
+  visibility: visible;
+  display: flex; 
+  justify-content: flex-end;
+}
+
 
 .add-form {
   margin-bottom: 40px;

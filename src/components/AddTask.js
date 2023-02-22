@@ -6,6 +6,9 @@ const AddTask = ({onAdd}) => {
     const [text, setText] = useState("")
     const [day, setDay] = useState("")
     const [reminder, setReminder] = useState(false)
+    const [completed, setCompleted] = useState(false)
+    const [priority, setPriority] = useState("low")
+    
     const onSubmit = (e => {
         e.preventDefault()
 
@@ -14,11 +17,14 @@ const AddTask = ({onAdd}) => {
             return
         }
         
-        onAdd ({text, day, reminder})
+        onAdd ({text, day, reminder, completed, priority})
 
         setText("")
         setDay("")
         setReminder(false)
+        setCompleted(false)
+        setPriority("low")
+
     })
     return (
       <form className="add-form" onSubmit={onSubmit}>
@@ -34,6 +40,16 @@ const AddTask = ({onAdd}) => {
             value={day} onChange={(e) => 
                 setDay(e.target.value)} />
         </div>
+    
+        <h5>Priority</h5>
+         <select id="priority" value={priority} onChange={(e) => 
+                setPriority(e.target.value)} >
+          
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+
         <div className="form-control form-control-check">
             <label>Set Reminder</label>
             <input type="checkbox" 

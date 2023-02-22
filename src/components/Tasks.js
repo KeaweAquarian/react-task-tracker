@@ -1,7 +1,7 @@
 
 import Task from "./Task"
 
-const Tasks = ({tasks, onDelete, onToggle}) => {
+const Tasks = ({tasks, onDelete, onToggle, completedToggle, priorityToggle}) => {
     
     return (
         <>
@@ -11,6 +11,8 @@ const Tasks = ({tasks, onDelete, onToggle}) => {
         task={task} 
         onDelete= {onDelete}
         onToggle={onToggle}
+        completedToggle={completedToggle}
+        priorityToggle={priorityToggle}
         />
         ))}
         </>
