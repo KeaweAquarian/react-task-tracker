@@ -9,6 +9,8 @@ const AddTask = ({onAdd}) => {
     const [completed, setCompleted] = useState(false)
     const [priority, setPriority] = useState("low")
     const [color, setColor] = useState(randomColor())
+    const [tested, setTested] = useState(false)
+    const [progress, setProgress] = useState("")
     
     const onSubmit = (e => {
         e.preventDefault()
@@ -36,14 +38,14 @@ const AddTask = ({onAdd}) => {
     return (
       <form className="add-form" onSubmit={onSubmit}>
         <div className="form-control">
-            <label>Task</label>
-            <input type="text" placeholder="Add Task" 
+            <label>Feature</label>
+            <input type="text" placeholder="Create a..." 
             value={text} onChange={(e) => 
             setText(e.target.value)} />
         </div>
         <div className="form-control">
-            <label>Day & Time</label>
-            <input type="day" placeholder="Add Day and Time"
+            <label>User Story</label>
+            <input type="text" placeholder="User needs to be able to..."
             value={day} onChange={(e) => 
                 setDay(e.target.value)} />
         </div>
