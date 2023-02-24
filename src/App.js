@@ -4,7 +4,8 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
-import About from './components/About'
+import AgileValues from './components/AgileValues'
+
 
 const App = () => {
   const [showAddTask, setShowAddTask] = useState(false)
@@ -117,9 +118,9 @@ const App = () => {
       const taskToToggle = await fetchTask(id)
        let valueP = ""
 
-       if (taskToToggle.priority == "low") {
+       if (taskToToggle.priority === "low") {
         valueP = 'medium';
-      } else if (taskToToggle.priority == "medium"){
+      } else if (taskToToggle.priority === "medium"){
         valueP = 'high';
       }else {
         valueP = 'low';
@@ -173,7 +174,8 @@ const App = () => {
               </>
             }
           />
-          <Route path='/about' element={<About />} />
+          <Route path='/about' element={<AgileValues />} />
+          <Route path='/agileValues' element={<AgileValues />} />
         </Routes>
         <Footer />
       </div>

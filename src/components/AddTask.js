@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import randomColor from "randomcolor";
 
 
 const AddTask = ({onAdd}) => {
@@ -8,22 +8,29 @@ const AddTask = ({onAdd}) => {
     const [reminder, setReminder] = useState(false)
     const [completed, setCompleted] = useState(false)
     const [priority, setPriority] = useState("low")
+    const [color, setColor] = useState(randomColor())
     
     const onSubmit = (e => {
         e.preventDefault()
+        //  const rand = Math.floor(Math.random()* 8);
+        // const myArray = ['#9AD9DB', '#98D4BB', '#EB96AA', '#F27348','#2CCED2','#4382BB','#A15D98','#F4C815 '];
+        //  let color = myArray[rand];
+        //  console.log(rand);
+        //  console.log(color);
 
         if(!text){
             alert("Please add task")
             return
         }
         
-        onAdd ({text, day, reminder, completed, priority})
+        onAdd ({text, day, reminder, completed, priority, color})
 
         setText("")
         setDay("")
         setReminder(false)
         setCompleted(false)
         setPriority("low")
+        setColor(randomColor())
 
     })
     return (

@@ -57,14 +57,15 @@ body {
 
 .task {
   background:#fff;
-  margin: 5px;
+  margin: 10px 5px;
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .high{
-  background-color: rgb(246, 12, 58);
+  background-color: rgb(240, 1, 49);
   width: 40px;
   height: 10px;
   border-radius: 8px;
@@ -109,7 +110,10 @@ text-decoration-thickness: 1.5px;
   justify-content: flex-end;
 }
 
-
+.agileImg{
+  width: 450px;
+object-fit:contain;
+}
 .add-form {
   margin-bottom: 40px;
 }

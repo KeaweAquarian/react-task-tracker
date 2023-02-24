@@ -1,27 +1,49 @@
 {
   "tasks": [
     {
-      "text": "a",
+      "text": "adfas",
       "day": "",
-      "reminder": true,
-      "completed": false,
-      "id": 6
-    },
-    {
-      "text": "asef",
-      "day": "af",
       "reminder": false,
       "completed": false,
-      "priority": "high",
-      "id": 7
+      "priority": "low",
+      "color": "#51f7a7",
+      "id": 8
     },
     {
-      "text": "ag",
+      "text": "afa",
       "day": "",
       "reminder": false,
       "completed": false,
       "priority": "medium",
-      "id": 8
+      "color": "#650b9e",
+      "id": 10
+    },
+    {
+      "text": "sh",
+      "day": "",
+      "reminder": false,
+      "completed": false,
+      "priority": "high",
+      "color": "#138e72",
+      "id": 26
+    },
+    {
+      "text": "buy bread",
+      "day": "",
+      "reminder": false,
+      "completed": false,
+      "priority": "high",
+      "color": "#35bfaf",
+      "id": 27
+    },
+    {
+      "text": "bake",
+      "day": "friday",
+      "reminder": false,
+      "completed": false,
+      "priority": "medium",
+      "color": "#dd30ac",
+      "id": 28
     }
   ]
 }
