@@ -42,6 +42,7 @@ const AddTask = ({onAdd}) => {
         </div>
     
         <h5>Priority</h5>
+      {/* To set priority */}
          <select id="priority" value={priority} onChange={(e) => 
                 setPriority(e.target.value)} >
           
