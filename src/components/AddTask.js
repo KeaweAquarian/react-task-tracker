@@ -8,7 +8,7 @@ const AddTask = ({onAdd}) => {
     const [reminder, setReminder] = useState(false)
     const [completed, setCompleted] = useState(false)
     const [priority, setPriority] = useState("low")
-    const [color, setColor] = useState(randomColor())
+    const [color, setColor] = useState("#FCFE7C")
     const [tested, setTested] = useState(false)
     const [progress, setProgress] = useState("")
     
@@ -19,6 +19,13 @@ const AddTask = ({onAdd}) => {
         //  let color = myArray[rand];
         //  console.log(rand);
         //  console.log(color);
+
+        // Other colors 
+        // #FFE08A orange 
+        // #C7FE7F green 
+        // #9BECFD blue 
+        // #FFC2E8 pink 
+        // #E1BBFB purple
 
         if(!text){
             alert("Please add task")
@@ -32,7 +39,7 @@ const AddTask = ({onAdd}) => {
         setReminder(false)
         setCompleted(false)
         setPriority("low")
-        setColor(randomColor())
+        setColor("#FCFE7C")
 
     })
     return (

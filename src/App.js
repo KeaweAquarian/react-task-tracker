@@ -28,7 +28,7 @@ const App = () => {
     return data
   }
 
-  // Fetch Task
+  // Fetch Task by id
   const fetchTask = async (id) => {
     const res = await fetch(`http://localhost:5000/tasks/${id}`)
     const data = await res.json()
@@ -150,15 +150,14 @@ const App = () => {
   return (
     <Router>
       <div className='container'>
-        <Header
-          onAdd={() => setShowAddTask(!showAddTask)}
-          showAdd={showAddTask}
-        />
+
         <Routes>
           <Route
             path='/'
             element={
               <>
+                      <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
+              />
                 {showAddTask && <AddTask onAdd={addTask} />}
                 {tasks.length > 0 ? (
                   <Tasks
@@ -174,8 +173,83 @@ const App = () => {
               </>
             }
           />
-          <Route path='/about' element={<AgileValues />} />
-          <Route path='/agileValues' element={<AgileValues />} />
+          <Route path='/springBacklog' element={
+              <>
+                <Header title={"Spring Backlog"} onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
+              />
+                {showAddTask && <AddTask onAdd={addTask} />}
+                {tasks.length > 0 ? (
+                  <Tasks
+                    tasks={tasks}
+                    onDelete={deleteTask}
+                    onToggle={toggleReminder}
+                    completedToggle={onCompleted}
+                    priorityToggle={togglePriority}
+                  />
+                ) : (
+                  'No Tasks To Show'
+                )}
+              </>
+          } />
+          <Route path='/toDo' element={
+              <>
+                <Header title={"To Do"} onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
+              />
+                {showAddTask && <AddTask onAdd={addTask} />}
+                {tasks.length > 0 ? (
+                  <Tasks
+                    tasks={tasks}
+                    onDelete={deleteTask}
+                    onToggle={toggleReminder}
+                    completedToggle={onCompleted}
+                    priorityToggle={togglePriority}
+                  />
+                ) : (
+                  'No Tasks To Show'
+                )}
+              </>
+          } />
+          <Route path='/inProgress' element={
+              <>
+                <Header title={"In Progress"} onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
+              />
+                {showAddTask && <AddTask onAdd={addTask} />}
+                {tasks.length > 0 ? (
+                  <Tasks
+                    tasks={tasks}
+                    onDelete={deleteTask}
+                    onToggle={toggleReminder}
+                    completedToggle={onCompleted}
+                    priorityToggle={togglePriority}
+                  />
+                ) : (
+                  'No Tasks To Show'
+                )}
+              </>
+          } />
+          <Route path='/done' element={
+              <>
+                <Header title={"Done"} onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
+              />
+                {showAddTask && <AddTask onAdd={addTask} />}
+                {tasks.length > 0 ? (
+                  <Tasks
+                    tasks={tasks}
+                    onDelete={deleteTask}
+                    onToggle={toggleReminder}
+                    completedToggle={onCompleted}
+                    priorityToggle={togglePriority}
+                  />
+                ) : (
+                  'No Tasks To Show'
+                )}
+              </>
+          } />
+          <Route
+           path='/agileValues'
+            element={
+
+            <AgileValues />} />
         </Routes>
         <Footer />
       </div>
