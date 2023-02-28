@@ -5,20 +5,33 @@ import Footer from './components/Footer'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
 import AgileValues from './components/AgileValues'
+import AgilePrinciples from './components/AgilePrinciples'
+import About from './components/About'
 
 
 const App = () => {
   const [showAddTask, setShowAddTask] = useState(false)
   const [tasks, setTasks] = useState([])
+  const [sprintBacklogTasks, setSprintBacklogTasks] = useState([])
+  const [sprintToDo, setSprintToDo] = useState([])
+  const [sprintInProgress, setSprintInProgress] = useState([])
+  const [sprintCompleted, setSprintCompleted] = useState([])
+  
 
   useEffect(() => {
     const getTasks = async () => {
       const tasksFromServer = await fetchTasks()
       setTasks(tasksFromServer)
+      setSprintBacklogTasks(tasksFromServer.filter((task) => task.progress !== "notCommited"))
+      setSprintToDo(tasksFromServer.filter((task) => task.progress === "toDo"))
+      setSprintInProgress(tasksFromServer.filter((task) => task.progress === "inProgress"))
+      setSprintCompleted(tasksFromServer.filter((task) => task.progress === "completed"))
+      
     }
 
     getTasks()
   }, [])
+
 
   // Fetch Tasks
   const fetchTasks = async () => {
@@ -49,10 +62,6 @@ const App = () => {
     const data = await res.json()
 
     setTasks([...tasks, data])
-
-    // const id = Math.floor(Math.random() * 10000) + 1
-    // const newTask = { id, ...task }
-    // setTasks([...tasks, newTask])
   }
 
 
@@ -62,17 +71,23 @@ const App = () => {
     const res = await fetch(`http://localhost:5000/tasks/${id}`, {
       method: 'DELETE',
     })
-    //We should control the response status to decide if we will change the state or not.
+    //Set responce type.
     res.status === 200
       ? setTasks(tasks.filter((task) => task.id !== id))
-      : alert('Error Deleting This Task')
+      : alert('Error task already deleted, refresh page!')
   }
 
-    //Complete Task
-    const onCompleted = async (id) => {
-      const toggleCompleted = await fetchTask(id)
+    //Toggle Tested Task
+    const toggleTested = async (id) => {
+
+      const taskToToggle = await fetchTask(id)
+
+            if(taskToToggle.progress !== "completed"){
+            alert("Task not completed!")
+            return
+        }
     
-      const upDate = {...toggleCompleted, completed: !toggleCompleted.completed}
+      const upDate = {...taskToToggle, tested: !taskToToggle.tested}
       console.log(upDate)
       const res = await fetch(`http://localhost:5000/tasks/${id}`, {
         method: 'PUT',
@@ -82,37 +97,16 @@ const App = () => {
         body: JSON.stringify(upDate),
       })
       const data = await res.json()
-      console.log(data)
+
       setTasks(
         tasks.map((task) =>
-          task.id === id ? { ...task, completed: data.completed } : task
+          task.id === id ? { ...task, tested: data.tested } : task
          
         )
       )
       
     }
 
-  // Toggle Reminder
-  const toggleReminder = async (id) => {
-    const taskToToggle = await fetchTask(id)
-    const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder }
-
-    const res = await fetch(`http://localhost:5000/tasks/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(updTask),
-    })
-
-    const data = await res.json()
-
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, reminder: data.reminder } : task
-      )
-    )
-  }
     // Toggle Priority
     const togglePriority = async (id) => {
       const taskToToggle = await fetchTask(id)
@@ -146,6 +140,31 @@ const App = () => {
         )
       )
     }
+        // Set Progress
+    const toggleProgress = async (id, progress) => {
+      const taskToToggle = await fetchTask(id)
+
+
+      const updTask = { ...taskToToggle, progress: progress
+ 
+       }
+  
+      const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(updTask),
+      })
+  
+      const data = await res.json()
+  
+      setTasks(
+        tasks.map((task) =>
+          task.id === id ? { ...task, progress: data.progress } : task
+        )
+      )
+    }
 
   return (
     <Router>
@@ -156,16 +175,16 @@ const App = () => {
             path='/'
             element={
               <>
-                      <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
+                <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
               />
                 {showAddTask && <AddTask onAdd={addTask} />}
                 {tasks.length > 0 ? (
                   <Tasks
                     tasks={tasks}
                     onDelete={deleteTask}
-                    onToggle={toggleReminder}
-                    completedToggle={onCompleted}
+                    testedToggle={toggleTested}
                     priorityToggle={togglePriority}
+                    progressToggle={toggleProgress}
                   />
                 ) : (
                   'No Tasks To Show'
@@ -175,16 +194,16 @@ const App = () => {
           />
           <Route path='/springBacklog' element={
               <>
-                <Header title={"Spring Backlog"} onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
+                <Header title={"Spring Backlog"} 
               />
-                {showAddTask && <AddTask onAdd={addTask} />}
-                {tasks.length > 0 ? (
+                {/* {showAddTask && <AddTask onAdd={addTask} />} */}
+                {sprintBacklogTasks.length > 0 ? (
                   <Tasks
-                    tasks={tasks}
+                    tasks={sprintBacklogTasks}
                     onDelete={deleteTask}
-                    onToggle={toggleReminder}
-                    completedToggle={onCompleted}
+                    testedToggle={toggleTested}
                     priorityToggle={togglePriority}
+                    progressToggle={toggleProgress}
                   />
                 ) : (
                   'No Tasks To Show'
@@ -196,13 +215,13 @@ const App = () => {
                 <Header title={"To Do"} onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
               />
                 {showAddTask && <AddTask onAdd={addTask} />}
-                {tasks.length > 0 ? (
+                {sprintToDo.length > 0 ? (
                   <Tasks
-                    tasks={tasks}
+                    tasks={sprintToDo}
                     onDelete={deleteTask}
-                    onToggle={toggleReminder}
-                    completedToggle={onCompleted}
+                    testedToggle={toggleTested}
                     priorityToggle={togglePriority}
+                    progressToggle={toggleProgress}
                   />
                 ) : (
                   'No Tasks To Show'
@@ -214,31 +233,31 @@ const App = () => {
                 <Header title={"In Progress"} onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
               />
                 {showAddTask && <AddTask onAdd={addTask} />}
-                {tasks.length > 0 ? (
+                {sprintInProgress.length > 0 ? (
                   <Tasks
-                    tasks={tasks}
+                    tasks={sprintInProgress}
                     onDelete={deleteTask}
-                    onToggle={toggleReminder}
-                    completedToggle={onCompleted}
+                    testedToggle={toggleTested}
                     priorityToggle={togglePriority}
+                    progressToggle={toggleProgress}
                   />
                 ) : (
                   'No Tasks To Show'
                 )}
               </>
           } />
-          <Route path='/done' element={
+          <Route path='/completed' element={
               <>
-                <Header title={"Done"} onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
+                <Header title={"Completed"} onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
               />
                 {showAddTask && <AddTask onAdd={addTask} />}
-                {tasks.length > 0 ? (
+                {sprintCompleted.length > 0 ? (
                   <Tasks
-                    tasks={tasks}
-                    onDelete={deleteTask}
-                    onToggle={toggleReminder}
-                    completedToggle={onCompleted}
+                    tasks={sprintCompleted}
+                  onDelete={deleteTask}
+                    testedToggle={toggleTested}
                     priorityToggle={togglePriority}
+                    progressToggle={toggleProgress}
                   />
                 ) : (
                   'No Tasks To Show'
@@ -250,7 +269,22 @@ const App = () => {
             element={
 
             <AgileValues />} />
+
+          <Route
+           path='/agile12'
+            element={
+
+            <AgilePrinciples />} />
+
+          <Route
+           path='/about'
+            element={
+
+            <About />} />
+        
         </Routes>
+
+        
         <Footer />
       </div>
     </Router>

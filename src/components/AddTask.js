@@ -1,45 +1,35 @@
 import { useState } from "react"
-import randomColor from "randomcolor";
+
 
 
 const AddTask = ({onAdd}) => {
-    const [text, setText] = useState("")
-    const [day, setDay] = useState("")
-    const [reminder, setReminder] = useState(false)
-    const [completed, setCompleted] = useState(false)
+    const [feature, setFeature] = useState("")
+    const [userStory, setUserStory] = useState("")
+    const [tested, setTested] = useState(false)
     const [priority, setPriority] = useState("low")
     const [color, setColor] = useState("#FCFE7C")
-    const [tested, setTested] = useState(false)
-    const [progress, setProgress] = useState("")
+    const [progress, setProgress] = useState("notCommited")
     
     const onSubmit = (e => {
         e.preventDefault()
-        //  const rand = Math.floor(Math.random()* 8);
-        // const myArray = ['#9AD9DB', '#98D4BB', '#EB96AA', '#F27348','#2CCED2','#4382BB','#A15D98','#F4C815 '];
-        //  let color = myArray[rand];
-        //  console.log(rand);
-        //  console.log(color);
 
-        // Other colors 
-        // #FFE08A orange 
-        // #C7FE7F green 
-        // #9BECFD blue 
-        // #FFC2E8 pink 
-        // #E1BBFB purple
-
-        if(!text){
-            alert("Please add task")
+        if(!feature){
+            alert("Please add feature")
+            return
+        }
+        if(!userStory){
+            alert("Please add user story")
             return
         }
         
-        onAdd ({text, day, reminder, completed, priority, color})
+        onAdd ({feature, userStory, priority, color, progress, tested})
 
-        setText("")
-        setDay("")
-        setReminder(false)
-        setCompleted(false)
+        setFeature("")
+        setUserStory("")
         setPriority("low")
         setColor("#FCFE7C")
+        setTested(false)
+        setProgress("notCommited")
 
     })
     return (
@@ -47,14 +37,14 @@ const AddTask = ({onAdd}) => {
         <div className="form-control">
             <label>Feature</label>
             <input type="text" placeholder="Create a..." 
-            value={text} onChange={(e) => 
-            setText(e.target.value)} />
+            value={feature} onChange={(e) => 
+            setFeature(e.target.value)} />
         </div>
         <div className="form-control">
             <label>User Story</label>
             <input type="text" placeholder="User needs to be able to..."
-            value={day} onChange={(e) => 
-                setDay(e.target.value)} />
+            value={userStory} onChange={(e) => 
+                setUserStory(e.target.value)} />
         </div>
     
         <h5>Priority</h5>
@@ -66,14 +56,6 @@ const AddTask = ({onAdd}) => {
           <option value="medium">Medium</option>
           <option value="low">Low</option>
         </select>
-
-        <div className="form-control form-control-check">
-            <label>Set Reminder</label>
-            <input type="checkbox" 
-            checked={reminder}
-            value={reminder} onChange={(e) => 
-            setReminder(e.currentTarget.checked)} />
-        </div>
 
         <input type="submit" value ="Save Task"  className="btn btn-block"/>
         

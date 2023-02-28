@@ -1,58 +1,63 @@
 {
   "tasks": [
     {
-      "text": "adfas",
-      "day": "",
+      "feature": "Button",
+      "userStory": "User needs to open form",
       "reminder": false,
-      "completed": false,
       "priority": "low",
-      "color": "#51f7a7",
+      "color": "#FCFE7C",
+      "progress": "toDo",
+      "tested": false,
+      "id": 5
+    },
+    {
+      "feature": "Home Screen Logo",
+      "userStory": "User needs company logo to direct clients back to home page.",
+      "reminder": false,
+      "priority": "low",
+      "color": "#FCFE7C",
+      "progress": "completed",
+      "tested": false,
+      "id": 6
+    },
+    {
+      "feature": "Navigation Links",
+      "userStory": "User needs to navigate through pages.",
+      "reminder": false,
+      "priority": "low",
+      "color": "#FCFE7C",
+      "progress": "notCommited",
+      "tested": false,
+      "id": 7
+    },
+    {
+      "feature": "Habbit add form",
+      "userStory": "Form to create habbits to chain.",
+      "reminder": false,
+      "priority": "low",
+      "color": "#FCFE7C",
+      "progress": "notCommited",
+      "tested": false,
       "id": 8
     },
     {
-      "text": "afa",
-      "day": "",
+      "feature": "Log in form",
+      "userStory": "Create a log in form that takes users to personal accounts.",
       "reminder": false,
-      "completed": false,
-      "priority": "medium",
-      "color": "#650b9e",
-      "id": 10
-    },
-    {
-      "text": "sh",
-      "day": "",
-      "reminder": false,
-      "completed": false,
       "priority": "high",
-      "color": "#138e72",
-      "id": 26
-    },
-    {
-      "text": "buy bread",
-      "day": "",
-      "reminder": false,
-      "completed": false,
-      "priority": "high",
-      "color": "#35bfaf",
-      "id": 27
-    },
-    {
-      "text": "bake",
-      "day": "friday",
-      "reminder": false,
-      "completed": false,
-      "priority": "medium",
-      "color": "#dd30ac",
-      "id": 28
-    },
-    {
-      "text": "lkmlavkm",
-      "day": "af",
-      "reminder": false,
-      "completed": false,
-      "priority": "low",
       "color": "#FCFE7C",
-      "id": 29
+      "progress": "notCommited",
+      "tested": false,
+      "id": 9
+    },
+    {
+      "feature": "Daily habbit links componet",
+      "userStory": "User needs to see each days habbit links.",
+      "priority": "medium",
+      "color": "#FCFE7C",
+      "progress": "notCommited",
+      "tested": false,
+      "id": 10
     }
   ]
 }

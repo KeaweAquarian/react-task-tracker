@@ -2,21 +2,34 @@ import { FaTrash, FaCheck} from "react-icons/fa"
 import React, { useState } from 'react';
 // import randomColor from "randomcolor";
 
-const Task = ({ task, onDelete, onToggle, completedToggle, priorityToggle }) => {
+const Task = ({ task, onDelete,  testedToggle, priorityToggle, progressToggle }) => {
     const [isShown, setIsShown] = useState(false);
-//   let color = randomColor();
-//   console.log(color);
+    const [color1, setColor] = useState("#FCFE7C");
+
     return (
-        <div className={`task ${task.reminder ? "reminder" : ""}`} onDoubleClick={() =>
-            onToggle(task.id) }  onMouseEnter={() => setIsShown(true)}
-            onMouseLeave={() => setIsShown(false)} style={{backgroundColor : task.color}}>
+        
+        
+        <div className={`task ${task.progress}`}  onMouseEnter={() => setIsShown(true)}
+            onMouseLeave={() => setIsShown(false)} >
             <div className={task.priority} onClick={() => priorityToggle(task.id)} ></div>
-            <h3 className={` ${task.completed ? "completed" : ""}`}>{task.text} </h3>
-            <p>{task.day}</p>
+            <h3 className={` ${task.tested ? "tested" : ""}`}>{task.feature} </h3>
+            <p>{task.userStory}</p>
+        {/* To set priority */}
+         <select className="progress" value={task.progress} onChange={(e) => 
+                progressToggle(task.id, e.target.value)} >
+          <option value="notCommited">Not Commited</option>
+          <option value="toDo">To Do</option>
+          <option value="inProgress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
             <div className={` ${isShown ? "icons" : "iconsNoShow"}`}   >
-            <FaCheck style={{ color: "green", cursor: "pointer", marginRight: "10px"}}
-            onClick={() => completedToggle(task.id)}
+            <div className="testedIcons" onClick={() =>  testedToggle(task.id)}>
+            <p>Tested?</p>
+             <FaCheck className="check" 
             />
+            </div>
+            
+
             <FaTrash style={{ color: "grey", cursor: "pointer"}}
             onClick={() => onDelete(task.id)}
             />
