@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 const Task = ({ task, onDelete,  testedToggle, priorityToggle, progressToggle }) => {
     const [isShown, setIsShown] = useState(false);
-    const [color1, setColor] = useState("#FCFE7C");
+    // const [color1, setColor] = useState("#FCFE7C");
 
     return (
         

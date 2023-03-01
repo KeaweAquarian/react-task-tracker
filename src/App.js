@@ -7,6 +7,7 @@ import AddTask from './components/AddTask'
 import AgileValues from './components/AgileValues'
 import AgilePrinciples from './components/AgilePrinciples'
 import About from './components/About'
+import ReadMe from './components/ReadMe'
 
 
 const App = () => {
@@ -16,6 +17,8 @@ const App = () => {
   const [sprintToDo, setSprintToDo] = useState([])
   const [sprintInProgress, setSprintInProgress] = useState([])
   const [sprintCompleted, setSprintCompleted] = useState([])
+  const [seed, setSeed] = useState(1);
+  
   
 
   useEffect(() => {
@@ -159,16 +162,53 @@ const App = () => {
   
       const data = await res.json()
   
-      setTasks(
-        tasks.map((task) =>
-          task.id === id ? { ...task, progress: data.progress } : task
-        )
-      )
+      // setTasks(
+      //   tasks.map((task) =>
+      //     task.id === id ? { ...task, progress: data.progress } : task
+      //   )
+      // )
+      //   setSprintBacklogTasks(
+      //   sprintBacklogTasks.map((task) =>
+      //     task.id === id ? { ...task, progress: data.progress } : task
+      //   )
+      // )
+      //   setSprintToDo(
+      //   sprintToDo.map((task) =>
+      //     task.id === id ? { ...task, progress: data.progress } : task
+      //   )
+      // )
+      //   setSprintInProgress(
+      //   sprintInProgress.map((task) =>
+      //     task.id === id ? { ...task, progress: data.progress } : task
+      //   )
+      // )
+      //   setSprintCompleted(
+      //   sprintCompleted.map((task) =>
+      //     task.id === id ? { ...task, progress: data.progress } : task
+      //   )
+      // )
+      // setSeed(Math.random());
+      // window.location.reload(false)
+
+      
+//Update components
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
+      setSprintBacklogTasks(tasksFromServer.filter((task) => task.progress !== "notCommited"))
+      setSprintToDo(tasksFromServer.filter((task) => task.progress === "toDo"))
+      setSprintInProgress(tasksFromServer.filter((task) => task.progress === "inProgress"))
+      setSprintCompleted(tasksFromServer.filter((task) => task.progress === "completed"))
+      
+    }
+
+    getTasks()
+  
     }
 
   return (
-    <Router>
-      <div className='container'>
+    <Router >
+      <div className='container' key={seed}>
 
         <Routes>
           <Route
@@ -185,6 +225,8 @@ const App = () => {
                     testedToggle={toggleTested}
                     priorityToggle={togglePriority}
                     progressToggle={toggleProgress}
+                    key={seed}
+                    
                   />
                 ) : (
                   'No Tasks To Show'
@@ -204,6 +246,7 @@ const App = () => {
                     testedToggle={toggleTested}
                     priorityToggle={togglePriority}
                     progressToggle={toggleProgress}
+                    key={seed}
                   />
                 ) : (
                   'No Tasks To Show'
@@ -222,6 +265,7 @@ const App = () => {
                     testedToggle={toggleTested}
                     priorityToggle={togglePriority}
                     progressToggle={toggleProgress}
+                    key={seed}
                   />
                 ) : (
                   'No Tasks To Show'
@@ -240,13 +284,14 @@ const App = () => {
                     testedToggle={toggleTested}
                     priorityToggle={togglePriority}
                     progressToggle={toggleProgress}
+                    key={seed}
                   />
                 ) : (
                   'No Tasks To Show'
                 )}
               </>
           } />
-          <Route path='/completed' element={
+          <Route path='/completed'  element={
               <>
                 <Header title={"Completed"} onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
               />
@@ -254,10 +299,11 @@ const App = () => {
                 {sprintCompleted.length > 0 ? (
                   <Tasks
                     tasks={sprintCompleted}
-                  onDelete={deleteTask}
+                    onDelete={deleteTask}
                     testedToggle={toggleTested}
                     priorityToggle={togglePriority}
                     progressToggle={toggleProgress}
+                    
                   />
                 ) : (
                   'No Tasks To Show'
@@ -281,6 +327,12 @@ const App = () => {
             element={
 
             <About />} />
+            
+          <Route
+           path='/readMe'
+            element={
+
+            <ReadMe />} />
         
         </Routes>
 

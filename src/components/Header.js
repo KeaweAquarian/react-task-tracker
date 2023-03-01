@@ -14,7 +14,10 @@ const linkStyle = {
   
 };
 
+
+
 const Header = ({title, onAdd, showAdd}) => {
+  
   const location = useLocation()
   return (
           <div>
@@ -24,7 +27,7 @@ const Header = ({title, onAdd, showAdd}) => {
       {location.pathname ==="/" && <Button color={showAdd ? "red": "navy"} text={showAdd ? "close": "Add"} onClick={onAdd} ></Button>}
     </header>
      <div className="links" >
-        <Link to="/" className="linkStyle" >Product Backlog</Link>
+        <Link to="/" className="linkStyle">Product Backlog</Link>
         <Link to="/springBacklog" className="linkStyle">Spring Backlog</Link>
         <Link to="/toDo" className="linkStyle">Tasks To Do</Link>
         <Link to="/inProgress" className="linkStyle">Tasks In Progress</Link>
