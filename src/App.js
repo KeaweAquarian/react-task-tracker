@@ -1,3 +1,4 @@
+//Author Keawe Aquarian
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
@@ -17,10 +18,10 @@ const App = () => {
   const [sprintToDo, setSprintToDo] = useState([])
   const [sprintInProgress, setSprintInProgress] = useState([])
   const [sprintCompleted, setSprintCompleted] = useState([])
-  const [seed, setSeed] = useState(1);
-  
-  
 
+  
+  
+//create task lists based on their progress
   useEffect(() => {
     const getTasks = async () => {
       const tasksFromServer = await fetchTasks()
@@ -74,7 +75,8 @@ const App = () => {
     const res = await fetch(`http://localhost:5000/tasks/${id}`, {
       method: 'DELETE',
     })
-    //Set responce type.
+
+  //Set responce type.
     res.status === 200
       ? setTasks(tasks.filter((task) => task.id !== id))
       : alert('Error task already deleted, refresh page!')
@@ -143,7 +145,7 @@ const App = () => {
         )
       )
     }
-        // Set Progress
+  // Set Progress
     const toggleProgress = async (id, progress) => {
       const taskToToggle = await fetchTask(id)
 
@@ -161,36 +163,10 @@ const App = () => {
       })
   
       const data = await res.json()
-  
-      // setTasks(
-      //   tasks.map((task) =>
-      //     task.id === id ? { ...task, progress: data.progress } : task
-      //   )
-      // )
-      //   setSprintBacklogTasks(
-      //   sprintBacklogTasks.map((task) =>
-      //     task.id === id ? { ...task, progress: data.progress } : task
-      //   )
-      // )
-      //   setSprintToDo(
-      //   sprintToDo.map((task) =>
-      //     task.id === id ? { ...task, progress: data.progress } : task
-      //   )
-      // )
-      //   setSprintInProgress(
-      //   sprintInProgress.map((task) =>
-      //     task.id === id ? { ...task, progress: data.progress } : task
-      //   )
-      // )
-      //   setSprintCompleted(
-      //   sprintCompleted.map((task) =>
-      //     task.id === id ? { ...task, progress: data.progress } : task
-      //   )
-      // )
-      // setSeed(Math.random());
-      // window.location.reload(false)
-
+      console.log(data)
       
+
+
 //Update components
     const getTasks = async () => {
       const tasksFromServer = await fetchTasks()
@@ -208,7 +184,7 @@ const App = () => {
 
   return (
     <Router >
-      <div className='container' key={seed}>
+      <div className='container'>
 
         <Routes>
           <Route
@@ -225,7 +201,6 @@ const App = () => {
                     testedToggle={toggleTested}
                     priorityToggle={togglePriority}
                     progressToggle={toggleProgress}
-                    key={seed}
                     
                   />
                 ) : (
@@ -237,8 +212,8 @@ const App = () => {
           <Route path='/springBacklog' element={
               <>
                 <Header title={"Spring Backlog"} 
-              />
-                {/* {showAddTask && <AddTask onAdd={addTask} />} */}
+              />{/* {showAddTask && <AddTask onAdd={addTask} />} */}
+                
                 {sprintBacklogTasks.length > 0 ? (
                   <Tasks
                     tasks={sprintBacklogTasks}
@@ -246,7 +221,6 @@ const App = () => {
                     testedToggle={toggleTested}
                     priorityToggle={togglePriority}
                     progressToggle={toggleProgress}
-                    key={seed}
                   />
                 ) : (
                   'No Tasks To Show'
@@ -257,7 +231,7 @@ const App = () => {
               <>
                 <Header title={"To Do"} onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
               />
-                {showAddTask && <AddTask onAdd={addTask} />}
+                {/* {showAddTask && <AddTask onAdd={addTask} />} */}
                 {sprintToDo.length > 0 ? (
                   <Tasks
                     tasks={sprintToDo}
@@ -265,7 +239,6 @@ const App = () => {
                     testedToggle={toggleTested}
                     priorityToggle={togglePriority}
                     progressToggle={toggleProgress}
-                    key={seed}
                   />
                 ) : (
                   'No Tasks To Show'
@@ -276,7 +249,7 @@ const App = () => {
               <>
                 <Header title={"In Progress"} onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
               />
-                {showAddTask && <AddTask onAdd={addTask} />}
+                {/* {showAddTask && <AddTask onAdd={addTask} />} */}
                 {sprintInProgress.length > 0 ? (
                   <Tasks
                     tasks={sprintInProgress}
@@ -284,7 +257,7 @@ const App = () => {
                     testedToggle={toggleTested}
                     priorityToggle={togglePriority}
                     progressToggle={toggleProgress}
-                    key={seed}
+                    
                   />
                 ) : (
                   'No Tasks To Show'
@@ -295,7 +268,7 @@ const App = () => {
               <>
                 <Header title={"Completed"} onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}
               />
-                {showAddTask && <AddTask onAdd={addTask} />}
+                {/* {showAddTask && <AddTask onAdd={addTask} />} */}
                 {sprintCompleted.length > 0 ? (
                   <Tasks
                     tasks={sprintCompleted}

@@ -1,19 +1,6 @@
-
 import PropTypes from "prop-types"
 import { useLocation, Link } from "react-router-dom"
 import Button from "./Button"
-
-// const NavUnlisted = styled.ul`
-//   text-decoration: none;
-// `;
-
-const linkStyle = {
-  margin: "5px",
-  textDecoration: "none",
-  color: 'black'
-  
-};
-
 
 
 const Header = ({title, onAdd, showAdd}) => {
