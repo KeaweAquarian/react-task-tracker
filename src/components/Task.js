@@ -1,4 +1,4 @@
-import { FaTrash, FaCheck} from "react-icons/fa"
+// import { FaTrash, FaCheck} from "react-icons/fa"
 import React, { useState } from 'react';
 
 const Task = ({ task, onDelete,  testedToggle, priorityToggle, progressToggle }) => {
@@ -25,14 +25,16 @@ const Task = ({ task, onDelete,  testedToggle, priorityToggle, progressToggle })
             {/* toggle task tested */}
             <div className="testedIcons" onClick={() =>  testedToggle(task.id)}>
             <p>Tested?</p>
-             <FaCheck className="check" 
-            />
+             {/* <FaCheck className="check" 
+            /> */}
             </div>
             
             {/* Delete button */}
-            <FaTrash style={{ color: "grey", cursor: "pointer"}}
+            {/* <FaTrash style={{ color: "grey", cursor: "pointer"}}
             onClick={() => onDelete(task.id)}
-            />
+            /> */}
+            <p style={{ color: "grey", cursor: "pointer"}}
+            onClick={() => onDelete(task.id)}>Delete?</p>
             </div>
 
         </div>
