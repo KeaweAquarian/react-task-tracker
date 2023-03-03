@@ -1,4 +1,4 @@
-// import { FaTrash, FaCheck} from "react-icons/fa"
+
 import React, { useState } from 'react';
 
 const Task = ({ task, onDelete,  testedToggle, priorityToggle, progressToggle }) => {
