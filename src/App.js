@@ -77,10 +77,10 @@ const App = () => {
     })
 setTasks(tasks.filter((task) => task.id !== id))
   //Set responce type.
-//     res.status === 200
-//       ? setTasks(tasks.filter((task) => task.id !== id))
-//       : alert('Error task already deleted, refresh page!')
-//   }
+    res.status === 200
+      ? setTasks(tasks.filter((task) => task.id !== id))
+      : alert('Error task already deleted, refresh page!')
+  }
 
     //Toggle Tested Task
     const toggleTested = async (id) => {
@@ -94,7 +94,7 @@ setTasks(tasks.filter((task) => task.id !== id))
     
       const upDate = {...taskToToggle, tested: !taskToToggle.tested}
       console.log(upDate)
-      const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+      const res = await fetch(`https://json-server-xi-seven.vercel.app/tasks/${id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json',
