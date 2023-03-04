@@ -75,11 +75,9 @@ const App = () => {
     const res = await fetch(`https://json-server-xi-seven.vercel.app/tasks/${id}`, {
       method: 'DELETE',
     })
-setTasks(tasks.filter((task) => task.id !== id))
-  //Set responce type.
-    res.status === 200
-      ? setTasks(tasks.filter((task) => task.id !== id))
-      : alert('Error task already deleted, refresh page!')
+  
+    
+    
   }
 
     //Toggle Tested Task
