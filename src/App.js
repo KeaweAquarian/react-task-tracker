@@ -88,12 +88,7 @@ const App = () => {
     }
 
     getTasks()
-    
-    setTasks(tasks.filter((task) => task.id !== id))
-  //Set responce type.
-    res.status === 200
-      ? setTasks(tasks.filter((task) => task.id !== id))
-      : alert('Error task already deleted, refresh page!')
+   
     
   }
 
@@ -124,6 +119,18 @@ const App = () => {
          
         )
       )
+          //Update components
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
+      setSprintBacklogTasks(tasksFromServer.filter((task) => task.progress !== "notCommited"))
+      setSprintToDo(tasksFromServer.filter((task) => task.progress === "toDo"))
+      setSprintInProgress(tasksFromServer.filter((task) => task.progress === "inProgress"))
+      setSprintCompleted(tasksFromServer.filter((task) => task.progress === "completed"))
+      
+    }
+
+    getTasks()
       
     }
 
@@ -159,6 +166,19 @@ const App = () => {
           task.id === id ? { ...task, priority: data.priority } : task
         )
       )
+          //Update components
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
+      setSprintBacklogTasks(tasksFromServer.filter((task) => task.progress !== "notCommited"))
+      setSprintToDo(tasksFromServer.filter((task) => task.progress === "toDo"))
+      setSprintInProgress(tasksFromServer.filter((task) => task.progress === "inProgress"))
+      setSprintCompleted(tasksFromServer.filter((task) => task.progress === "completed"))
+      
+    }
+
+    getTasks()
+      
     }
   // Set Progress
     const toggleProgress = async (id, progress) => {
