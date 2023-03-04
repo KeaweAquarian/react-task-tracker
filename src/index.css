@@ -70,7 +70,6 @@ body {
 }
 
 .linkStyle:hover {
-  margin: "5px";
   text-decoration: none;
   color: blue;
 
