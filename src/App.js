@@ -39,7 +39,7 @@ const App = () => {
 
   // Fetch Tasks
   const fetchTasks = async () => {
-    const res = await fetch('http://localhost:5000/tasks')
+    const res = await fetch('http://backendscrumboard-env.eba-pavvi2mj.us-east-1.elasticbeanstalk.com/api/tasks')
     const data = await res.json()
 
     return data
@@ -47,7 +47,7 @@ const App = () => {
 
   // Fetch Task by id
   const fetchTask = async (id) => {
-    const res = await fetch(`http://localhost:5000/tasks/${id}`)
+    const res = await fetch(`http://backendscrumboard-env.eba-pavvi2mj.us-east-1.elasticbeanstalk.com/api/tasks/${id}`)
     const data = await res.json()
 
     return data
@@ -55,7 +55,7 @@ const App = () => {
 
   // Add Task
   const addTask = async (task) => {
-    const res = await fetch('http://localhost:5000/tasks', {
+    const res = await fetch('http://backendscrumboard-env.eba-pavvi2mj.us-east-1.elasticbeanstalk.com/api/tasks', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -63,23 +63,50 @@ const App = () => {
       body: JSON.stringify(task),
     })
 
-    const data = await res.json()
 
-    setTasks([...tasks, data])
+    // const data = await res.json()
+
+    // setTasks([...tasks, data])
+    // console.log(data)
+    //Update components
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
+      setSprintBacklogTasks(tasksFromServer.filter((task) => task.progress !== "notCommited"))
+      setSprintToDo(tasksFromServer.filter((task) => task.progress === "toDo"))
+      setSprintInProgress(tasksFromServer.filter((task) => task.progress === "inProgress"))
+      setSprintCompleted(tasksFromServer.filter((task) => task.progress === "completed"))
+      
+    }
+
+    getTasks()
+    
   }
 
 
 
   // Delete Task
   const deleteTask = async (id) => {
-    const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+    const res = await fetch(`http://backendscrumboard-env.eba-pavvi2mj.us-east-1.elasticbeanstalk.com/api/tasks/${id}`, {
       method: 'DELETE',
     })
 
   //Set responce type.
-    res.status === 200
-      ? setTasks(tasks.filter((task) => task.id !== id))
-      : alert('Error task already deleted, refresh page!')
+    // res.status === 200
+    //   ? setTasks(tasks.filter((task) => task.id !== id))
+    //   : alert('Error task already deleted, refresh page!')
+    //Update components
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
+      setSprintBacklogTasks(tasksFromServer.filter((task) => task.progress !== "notCommited"))
+      setSprintToDo(tasksFromServer.filter((task) => task.progress === "toDo"))
+      setSprintInProgress(tasksFromServer.filter((task) => task.progress === "inProgress"))
+      setSprintCompleted(tasksFromServer.filter((task) => task.progress === "completed"))
+      
+    }
+
+    getTasks()
   }
 
     //Toggle Tested Task
@@ -94,21 +121,33 @@ const App = () => {
     
       const upDate = {...taskToToggle, tested: !taskToToggle.tested}
       console.log(upDate)
-      const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+      const res = await fetch(`http://backendscrumboard-env.eba-pavvi2mj.us-east-1.elasticbeanstalk.com/api/tasks/${id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json',
         },
         body: JSON.stringify(upDate),
       })
-      const data = await res.json()
+      // const data = await res.json()
 
-      setTasks(
-        tasks.map((task) =>
-          task.id === id ? { ...task, tested: data.tested } : task
+      // setTasks(
+      //   tasks.map((task) =>
+      //     task.id === id ? { ...task, tested: data.tested } : task
          
-        )
-      )
+      //   )
+      // )
+      //Update components
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
+      setSprintBacklogTasks(tasksFromServer.filter((task) => task.progress !== "notCommited"))
+      setSprintToDo(tasksFromServer.filter((task) => task.progress === "toDo"))
+      setSprintInProgress(tasksFromServer.filter((task) => task.progress === "inProgress"))
+      setSprintCompleted(tasksFromServer.filter((task) => task.progress === "completed"))
+      
+    }
+
+    getTasks()
       
     }
 
@@ -129,21 +168,34 @@ const App = () => {
  
        }
   
-      const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+      const res = await fetch(`http://backendscrumboard-env.eba-pavvi2mj.us-east-1.elasticbeanstalk.com/api/tasks/${id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json',
         },
         body: JSON.stringify(updTask),
       })
+  //create task lists based on their progress
+
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
+      setSprintBacklogTasks(tasksFromServer.filter((task) => task.progress !== "notCommited"))
+      setSprintToDo(tasksFromServer.filter((task) => task.progress === "toDo"))
+      setSprintInProgress(tasksFromServer.filter((task) => task.progress === "inProgress"))
+      setSprintCompleted(tasksFromServer.filter((task) => task.progress === "completed"))
+      
+    }
+
+    getTasks()
   
-      const data = await res.json()
+      // const data = await res.json()
   
-      setTasks(
-        tasks.map((task) =>
-          task.id === id ? { ...task, priority: data.priority } : task
-        )
-      )
+      // setTasks(
+      //   tasks.map((task) =>
+      //     task.id === id ? { ...task, priority: data.priority } : task
+      //   )
+      // )
     }
   // Set Progress
     const toggleProgress = async (id, progress) => {
@@ -154,7 +206,7 @@ const App = () => {
  
        }
   
-      const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+      const res = await fetch(`http://backendscrumboard-env.eba-pavvi2mj.us-east-1.elasticbeanstalk.com/api/tasks/${id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json',
@@ -162,10 +214,8 @@ const App = () => {
         body: JSON.stringify(updTask),
       })
   
-      const data = await res.json()
-      console.log(data)
-      
-
+      // const data = await res.json()
+      // console.log(data)
 
 //Update components
     const getTasks = async () => {

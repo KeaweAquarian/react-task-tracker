@@ -148,6 +148,15 @@
       "progress": "notCommited",
       "tested": false,
       "id": 20
+    },
+    {
+      "feature": "About link",
+      "userStory": "Describe the features of the app",
+      "priority": "low",
+      "color": "#FCFE7C",
+      "progress": "notCommited",
+      "tested": false,
+      "id": 21
     }
   ]
 }
