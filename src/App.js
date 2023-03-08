@@ -81,24 +81,6 @@ const App = () => {
 
     getTasks()
     
-
-    // const data = await res.json()
-
-    // setTasks([...tasks, data])
-    // console.log(data)
-    //Update components
-    const getTasks = async () => {
-      const tasksFromServer = await fetchTasks()
-      setTasks(tasksFromServer)
-      setSprintBacklogTasks(tasksFromServer.filter((task) => task.progress !== "notCommited"))
-      setSprintToDo(tasksFromServer.filter((task) => task.progress === "toDo"))
-      setSprintInProgress(tasksFromServer.filter((task) => task.progress === "inProgress"))
-      setSprintCompleted(tasksFromServer.filter((task) => task.progress === "completed"))
-      
-    }
-
-    getTasks()
-    
   }
 
 
@@ -110,21 +92,6 @@ const App = () => {
     })
 
   //Set responce type.
-    // res.status === 200
-    //   ? setTasks(tasks.filter((task) => task.id !== id))
-    //   : alert('Error task already deleted, refresh page!')
-    //Update components
-    const getTasks = async () => {
-      const tasksFromServer = await fetchTasks()
-      setTasks(tasksFromServer)
-      setSprintBacklogTasks(tasksFromServer.filter((task) => task.progress !== "notCommited"))
-      setSprintToDo(tasksFromServer.filter((task) => task.progress === "toDo"))
-      setSprintInProgress(tasksFromServer.filter((task) => task.progress === "inProgress"))
-      setSprintCompleted(tasksFromServer.filter((task) => task.progress === "completed"))
-      
-    }
-
-    getTasks()
     // res.status === 200
     //   ? setTasks(tasks.filter((task) => task.id !== id))
     //   : alert('Error task already deleted, refresh page!')
@@ -162,29 +129,11 @@ const App = () => {
         body: JSON.stringify(upDate),
       })
       // const data = await res.json()
-      // const data = await res.json()
 
-      // setTasks(
-      //   tasks.map((task) =>
-      //     task.id === id ? { ...task, tested: data.tested } : task
       // setTasks(
       //   tasks.map((task) =>
       //     task.id === id ? { ...task, tested: data.tested } : task
          
-      //   )
-      // )
-      //Update components
-    const getTasks = async () => {
-      const tasksFromServer = await fetchTasks()
-      setTasks(tasksFromServer)
-      setSprintBacklogTasks(tasksFromServer.filter((task) => task.progress !== "notCommited"))
-      setSprintToDo(tasksFromServer.filter((task) => task.progress === "toDo"))
-      setSprintInProgress(tasksFromServer.filter((task) => task.progress === "inProgress"))
-      setSprintCompleted(tasksFromServer.filter((task) => task.progress === "completed"))
-      
-    }
-
-    getTasks()
       //   )
       // )
       //Update components
@@ -239,28 +188,9 @@ const App = () => {
     }
 
     getTasks()
-  //create task lists based on their progress
-
-    const getTasks = async () => {
-      const tasksFromServer = await fetchTasks()
-      setTasks(tasksFromServer)
-      setSprintBacklogTasks(tasksFromServer.filter((task) => task.progress !== "notCommited"))
-      setSprintToDo(tasksFromServer.filter((task) => task.progress === "toDo"))
-      setSprintInProgress(tasksFromServer.filter((task) => task.progress === "inProgress"))
-      setSprintCompleted(tasksFromServer.filter((task) => task.progress === "completed"))
-      
-    }
-
-    getTasks()
   
       // const data = await res.json()
-      // const data = await res.json()
   
-      // setTasks(
-      //   tasks.map((task) =>
-      //     task.id === id ? { ...task, priority: data.priority } : task
-      //   )
-      // )
       // setTasks(
       //   tasks.map((task) =>
       //     task.id === id ? { ...task, priority: data.priority } : task
@@ -284,9 +214,6 @@ const App = () => {
         body: JSON.stringify(updTask),
       })
   
-      // const data = await res.json()
-      // console.log(data)
-
       // const data = await res.json()
       // console.log(data)
 
